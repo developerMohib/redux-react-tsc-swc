@@ -17,31 +17,41 @@ const Home = () => {
     }
     return (
         <main>
-            <div className='flex h-screen justify-center items-center'>
-                <h2> This is Redux explaining tour </h2>
-                <div className='bg-orange-200'>
-                    <button
-                        aria-label="Increment value"
-                        onClick={() => handleIncrement(2)}
-                    >
-                        Increment
-                    </button>
-                    <span>{count}</span>
-                    <button
-                        aria-label="Decrement value"
-                        onClick={() => handleDecrement(2)}
-                    >
-                        Decrement
-                    </button>
+
+            <div className='text-center'>
+                <div>
+                    <h2> This is Redux explaining tour </h2>
                 </div>
-                <button
-                    aria-label="Increment value"
-                    onClick={() => handleIncrement(5)}
-                >
-                    Increment by 5
-                </button>
-                <Button>here click me</Button>
+
+                <div>
+                    <div className='bg-orange-200 flex justify-around'>
+                        <Button
+                            aria-label="Increment value"
+                            onClick={() => handleIncrement(2)}
+                        >
+                            Increment
+                        </Button>
+                        <span>{count}</span>
+                        <Button
+                            aria-label="Decrement value"
+                            onClick={() => handleDecrement(2)}
+                        >
+                            Decrement
+                        </Button>
+                    </div>
+                    <Button
+                        className="my-10"
+                        aria-label="Increment value"
+                        onClick={() => handleIncrement(5)}
+                    >
+                        Increment by 5
+                    </Button>
+                </div>
+
             </div>
+
+
+
         </main>
     );
 };
