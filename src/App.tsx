@@ -4,9 +4,11 @@ import { Outlet } from 'react-router-dom'
 function App() {
 
   return (
-    <main>
+    <main className='px-10'>
       <Navbar />
-      <Outlet />
+      <div className='max-w-screen-xl mx-auto'>
+        <Outlet />
+      </div>
     </main>
   )
 }

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 
 const Home = () => {
-    const count = useAppSelector((state: RootState) => state.count)
+    const count = useAppSelector((state: RootState) => state.counter.count)
     const dispatch = useAppDispatch()
     console.log(count)
 
@@ -31,7 +31,7 @@ const Home = () => {
                         >
                             Increment
                         </Button>
-                        <span>{count}</span>
+                        <span  >{count}</span>
                         <Button
                             aria-label="Decrement value"
                             onClick={() => handleDecrement(2)}

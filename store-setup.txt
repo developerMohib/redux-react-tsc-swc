@@ -1,0 +1,4 @@
+1. create slice see the document
+2. connect to store
+go to console 
+see the document
