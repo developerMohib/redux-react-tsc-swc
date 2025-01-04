@@ -1,8 +1,16 @@
+import { AddTask } from "@/components/taskCard/AddTask";
+import TaskCard from "@/components/taskCard/TaskCard";
+import { selectTask } from "@/redux/features/tasks/taskSlice";
+import { useAppSelector } from "@/redux/hooks";
 
 const Tasks = () => {
+    const tasks = useAppSelector(selectTask)
+    console.log(tasks)
     return (
         <div>
-            <h1>hello task </h1>
+            <AddTask />
+            {tasks?.map(task => 
+            <TaskCard task={task} key={task.id} />)}
         </div>
     );
 };
