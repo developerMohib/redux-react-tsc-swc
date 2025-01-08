@@ -1,45 +1,35 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 const Quiz = () => {
+  const dispatch = useAppDispatch()
+  const { questions, currentQuestionIndex } = useAppSelector(state => state.quizs)
+
+  const currentQuestion = questions[currentQuestionIndex]
+  const { question } = currentQuestion;
+
+  const handleUserAnswer = (option :string) =>{
+console.log(option)
+  }
+
+
   return (
     <div>
-      <h1 className="uppercase font-semibold text-center my-10">jakanaka Quiz app</h1>
-      <Card className="w-[350px] mx-auto">
+      <h1 className="uppercase font-semibold text-center my-10 text-5xl">jakanaka Quiz app</h1>
+      <Card className="w-[550px] mx-auto">
         <CardHeader>
-          <CardTitle>Create project</CardTitle>
-          <CardDescription>Deploy your new project in one-click.</CardDescription>
+          <CardTitle className="md:text-2xl" >{question}</ CardTitle>
+          <CardDescription> Question {currentQuestionIndex + 1} of {questions.length} </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Name of your project" />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="framework">Framework</Label>
-                <Select>
-                  <SelectTrigger id="framework">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    <SelectItem value="next">Next.js</SelectItem>
-                    <SelectItem value="sveltekit">SvelteKit</SelectItem>
-                    <SelectItem value="astro">Astro</SelectItem>
-                    <SelectItem value="nuxt">Nuxt.js</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </form>
+          {
+            currentQuestion.options.map((option, idx) => <Button key={idx} onClick={()=>handleUserAnswer(option)} className="w-full my-2 p-1">{option}</Button>)
+          }
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button variant="outline">Cancel</Button>
-          <Button>Deploy</Button>
+          <Button>Previous</Button>
+          <Button>Next</Button>
         </CardFooter>
       </Card>
     </div>
