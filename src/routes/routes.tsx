@@ -1,6 +1,7 @@
 import App from '@/App';
 import ErrorPage from '@/pages/errorPage/ErrorPage';
 import Home from '@/pages/home/Home';
+import Quiz from '@/pages/quiz/Quiz';
 import Tasks from '@/pages/tasks/Tasks';
 import Users from '@/pages/users/Users';
 import { createBrowserRouter } from 'react-router';
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
             {
                 path: "/tasks",
                 element: <Tasks />
+            },
+            {
+                path: "/quiz",
+                element: <Quiz />
             },
         ]
     }
