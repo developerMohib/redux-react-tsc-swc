@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { setAnswer } from "@/redux/features/quiz/quizSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import QuizControl from "./QuizControl";
 
 const Quiz = () => {
   const dispatch = useAppDispatch()
@@ -9,8 +11,8 @@ const Quiz = () => {
   const currentQuestion = questions[currentQuestionIndex]
   const { question } = currentQuestion;
 
-  const handleUserAnswer = (option :string) =>{
-console.log(option)
+  const handleUserAnswer = (option: string) => {
+    dispatch(setAnswer({ currentQuestionIndex, option }))
   }
 
 
@@ -24,13 +26,10 @@ console.log(option)
         </CardHeader>
         <CardContent>
           {
-            currentQuestion.options.map((option, idx) => <Button key={idx} onClick={()=>handleUserAnswer(option)} className="w-full my-2 p-1">{option}</Button>)
+            currentQuestion?.options?.map((option, idx) => <Button key={idx} onClick={() => handleUserAnswer(option)} className="w-full my-2 p-1">{option}</Button>)
           }
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button>Previous</Button>
-          <Button>Next</Button>
-        </CardFooter>
+        <QuizControl />
       </Card>
     </div>
   );
