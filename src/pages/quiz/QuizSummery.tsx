@@ -6,16 +6,15 @@ const QuizSummery = () => {
     const { questions, userAnswer } = useAppSelector(state => state.quizs)
 
     // Calculate correct and incorrect answers 
-    const currectAnswer = questions.reduce((count, question, index) => {
+    const currectAnswer: number = questions.reduce((count, question, index) => {
         return question.correctAnswer === userAnswer[index] ? count + 1 : count
     }, 0)
 
     // incorrect 
-    const incorrectAnswer = questions.length - currectAnswer
-    console.log(incorrectAnswer)
+    const incorrectAnswer: number = questions.length - currectAnswer
 
     // progress bar
-    const correctPercentage = Number((currectAnswer / questions.length) * 100).toFixed(2)
+    const correctPercentage: string = Number((currectAnswer / questions.length) * 100).toFixed(2)
 
     return (
         <div className="flex justify-center my-auto">
@@ -23,6 +22,7 @@ const QuizSummery = () => {
                 <CardHeader>All quiz done, Quiz Summery</CardHeader>
                 <CardContent>
                     <h1>You got {currectAnswer} out of {questions.length} </h1>
+                    <h1>And incorrect {incorrectAnswer} out of {questions.length} </h1>
                 </CardContent>
                 <Progress value={parseFloat(correctPercentage)} />
             </Card>

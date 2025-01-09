@@ -7,13 +7,13 @@ const QuizControl = () => {
     const { currentQuestionIndex, questions, userAnswer, isComplete } = useAppSelector((state) => state.quizs);
 
     const dispatch = useAppDispatch()
-    const handleNext = () => {
+    const handleNext = (): void => {
         dispatch(nextButton())
     }
-    const handlePrevious = () => {
+    const handlePrevious = (): void => {
         dispatch(previousButton())
     }
-    const hanldeQuizComplete = () => {
+    const hanldeQuizComplete = (): void=> {
         dispatch(completeQuiz())
     }
     const isAnswered = userAnswer[currentQuestionIndex] !== null
