@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { CardFooter } from '@/components/ui/card';
-import { nextButton,previousButton } from '@/redux/features/quiz/quizSlice';
-import { useAppDispatch } from '@/redux/hooks';
+import { nextButton, previousButton } from '@/redux/features/quiz/quizSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 const QuizControl = () => {
-
+    const { currentQuestionIndex, questions, userAnswer } = useAppSelector((state) => state.quizs);
 
     const dispatch = useAppDispatch()
     const handleNext = () => {
@@ -13,12 +13,21 @@ const QuizControl = () => {
     const handlePrevious = () => {
         dispatch(previousButton())
     }
+    const isAnswered = userAnswer[currentQuestionIndex] !== null
+    console.log('answer', isAnswered)
 
+    // Check if all answers are selected for the last question
+    const isQuizCompleted = isAnswered || currentQuestionIndex !== questions.length - 1
 
     return (
         <CardFooter className="flex justify-between">
-            <Button onClick={handlePrevious} >Previous</Button>
-            <Button onClick={handleNext} >Next</Button>
+            <Button onClick={handlePrevious} disabled={currentQuestionIndex === 0} >Previous</Button>
+            {
+                currentQuestionIndex < questions.length - 1 && <Button disabled={!isAnswered} onClick={handleNext} >Next</Button>
+            }
+            {
+                currentQuestionIndex === questions.length - 1 && <Button disabled={!isQuizCompleted} onClick={handleNext} >Quiz Complete</Button>
+            }
         </CardFooter>
     );
 };

@@ -6,15 +6,17 @@ import QuizControl from "./QuizControl";
 
 const Quiz = () => {
   const dispatch = useAppDispatch()
-  const { questions, currentQuestionIndex } = useAppSelector(state => state.quizs)
+  const { questions, currentQuestionIndex,userAnswer } = useAppSelector(state => state.quizs)
 
   const currentQuestion = questions[currentQuestionIndex]
   const { question } = currentQuestion;
+  const currentAnswer = userAnswer[currentQuestionIndex]; // Get the selected answer
 
   const handleUserAnswer = (option: string) => {
     dispatch(setAnswer({ currentQuestionIndex, option }))
   }
-
+  console.log(currentAnswer, 'option')
+// console.log(currentQuestion, 'curent q')
 
   return (
     <div>
@@ -26,7 +28,7 @@ const Quiz = () => {
         </CardHeader>
         <CardContent>
           {
-            currentQuestion?.options?.map((option, idx) => <Button key={idx} onClick={() => handleUserAnswer(option)} className="w-full my-2 p-1">{option}</Button>)
+            currentQuestion?.options?.map((option, idx) => <Button key={idx} onClick={() => handleUserAnswer(option)} className="w-full my-2 p-1" variant={option === currentAnswer ? "default" : "outline"}>{option}</Button>)
           }
         </CardContent>
         <QuizControl />
