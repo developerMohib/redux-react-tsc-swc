@@ -4,7 +4,7 @@ import { nextButton, previousButton } from '@/redux/features/quiz/quizSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 const QuizControl = () => {
-    const { currentQuestionIndex, questions, userAnswer } = useAppSelector((state) => state.quizs);
+    const { currentQuestionIndex, questions, userAnswer,isComplete } = useAppSelector((state) => state.quizs);
 
     const dispatch = useAppDispatch()
     const handleNext = () => {
@@ -21,12 +21,12 @@ const QuizControl = () => {
 
     return (
         <CardFooter className="flex justify-between">
-            <Button onClick={handlePrevious} disabled={currentQuestionIndex === 0} >Previous</Button>
+            <Button onClick={handlePrevious} disabled={currentQuestionIndex === 0 || isComplete} >Previous</Button>
             {
-                currentQuestionIndex < questions.length - 1 && <Button disabled={!isAnswered} onClick={handleNext} >Next</Button>
+                currentQuestionIndex < questions.length - 1 && <Button disabled={!isAnswered || isComplete} onClick={handleNext} >Next</Button>
             }
             {
-                currentQuestionIndex === questions.length - 1 && <Button disabled={!isQuizCompleted} onClick={handleNext} >Quiz Complete</Button>
+                currentQuestionIndex === questions.length - 1 && !isComplete && <Button disabled={!isQuizCompleted} onClick={handleNext} >Quiz Complete</Button>
             }
         </CardFooter>
     );

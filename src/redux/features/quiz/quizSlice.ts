@@ -20,10 +20,10 @@ export const quizSlice = createSlice({
   initialState,
   reducers: {
     setAnswer: (state, action) => {
-      // when user click the question => need to know two thing, 
+      // when user click the question => need to know two thing,
       // question number and option
       const { currentQuestionIndex, option } = action.payload;
-      console.log('slice', currentQuestionIndex, option)
+      console.log("slice", currentQuestionIndex, option);
       state.userAnswer[currentQuestionIndex] = option;
     },
 
@@ -37,7 +37,11 @@ export const quizSlice = createSlice({
         state.currentQuestionIndex = state.currentQuestionIndex - 1;
       }
     },
+    completeQuiz: (state) => {
+      state.isComplete = true;
+    },
   },
 });
-export const { setAnswer, nextButton, previousButton } = quizSlice.actions;
+export const { setAnswer, nextButton, previousButton, completeQuiz } =
+  quizSlice.actions;
 export default quizSlice.reducer;
