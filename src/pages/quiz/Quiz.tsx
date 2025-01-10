@@ -4,7 +4,6 @@ import QuizSummery from "./QuizSummery";
 
 const Quiz = () => {
 const {isComplete} = useAppSelector(state => state.quizs)
-console.log('complete ', isComplete)
   return (
     <div>
       {

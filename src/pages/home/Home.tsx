@@ -6,7 +6,6 @@ import { RootState } from "@/redux/store";
 const Home = () => {
     const count = useAppSelector((state: RootState) => state.counter.count)
     const dispatch = useAppDispatch()
-    console.log(count)
 
     // handle here
     const handleIncrement = (amount: number): void => {
@@ -17,7 +16,6 @@ const Home = () => {
     }
     return (
         <main>
-
             <div className='text-center'>
                 <div>
                     <h2> This is Redux explaining tour </h2>
@@ -47,11 +45,7 @@ const Home = () => {
                         Increment by 5
                     </Button>
                 </div>
-
             </div>
-
-
-
         </main>
     );
 };
