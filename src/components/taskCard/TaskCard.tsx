@@ -2,7 +2,7 @@ import { ITask } from "@/interface/taskInterface";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "../ui/checkbox";
 import { useAppDispatch } from "@/redux/hooks";
-import { completeTask } from "@/redux/features/tasks/taskSlice";
+import { completeTask, deleteTask } from "@/redux/features/tasks/taskSlice";
 
 interface IProps {
     task: ITask
@@ -41,9 +41,9 @@ const TaskCard = ({ task }: IProps) => {
 
                 </div>
 
-                <div className="grid-cols-1">
-                    <h1>hello shala</h1>
-                    <Checkbox disabled={task.isCompleted} onClick={() => handleCompleteTask(task.id)} />
+                <div className="grid-cols-1 space-x-5 flex items-center">
+                    <Checkbox disabled={task.isCompleted} onClick={() => dispatch(completeTask(task.id))} />
+                    <button onClick={() => dispatch(deleteTask(task.id))} > delete</button>
                 </div>
             </div>
         </div>
