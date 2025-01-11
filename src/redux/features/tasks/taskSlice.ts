@@ -1,6 +1,6 @@
 import { ITask } from "@/interface/taskInterface";
 import { RootState } from "@/redux/store";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 interface IinitialState {
   task: ITask[];
 }
@@ -26,7 +26,7 @@ const initialState: IinitialState = {
       id: "asdfasdff",
       title: "This is task three",
       description: "This is description",
-      dueDate: "2025-1",
+      dueDate: "11-01-2025",
       isCompleted: false,
       priority: "Low",
     },
@@ -36,11 +36,21 @@ const initialState: IinitialState = {
 const taskSlice = createSlice({
   name: "task",
   initialState,
-  reducers: {},
+  reducers: {
+    addATask: (state, action: PayloadAction<ITask>) => {
+      const id = nanoid();
+      const taskData = {
+        ...action.payload,
+        id,
+        isCompleted: false,
+      };
+      state.task.push(taskData);
+    },
+  },
 });
 
 export const selectTask = (state: RootState) => {
   return state.tasks.task;
 };
-
+export const { addATask } = taskSlice.actions;
 export default taskSlice.reducer;
