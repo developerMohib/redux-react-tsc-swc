@@ -9,7 +9,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { useForm } from "react-hook-form"
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form"
 import { Textarea } from "../ui/textarea"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select"
@@ -20,13 +20,13 @@ import { CalendarIcon } from "lucide-react"
 import { Calendar } from "../ui/calendar"
 import { useAppDispatch } from "@/redux/hooks"
 import { addATask } from "@/redux/features/tasks/taskSlice"
+import { ITask } from "@/interface/taskInterface"
 
 export function AddTask() {
     const form = useForm()
     const dispatch = useAppDispatch()
-    const onSubmit = (data ): void => {
-        console.log(data)
-        dispatch(addATask(data))
+    const onSubmit: SubmitHandler<FieldValues> = (data): void => {
+        dispatch(addATask(data as ITask))
     }
 
     return (

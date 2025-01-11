@@ -22,15 +22,12 @@ const initialState: IinitialState = {
       isCompleted: false,
       priority: "Medium",
     },
-    {
-      id: "asdfasdff",
-      title: "This is task three",
-      description: "This is description",
-      dueDate: "11-01-2025",
-      isCompleted: false,
-      priority: "Low",
-    },
   ],
+};
+
+type DrafData = Pick<ITask, "title" | "description" | "dueDate" | "priority">;
+const createTask = (taskFormData: DrafData) => {
+  return { id: nanoid(), isCompleted: false, ...taskFormData };
 };
 
 const taskSlice = createSlice({
@@ -38,13 +35,16 @@ const taskSlice = createSlice({
   initialState,
   reducers: {
     addATask: (state, action: PayloadAction<ITask>) => {
-      const id = nanoid();
-      const taskData = {
-        ...action.payload,
-        id,
-        isCompleted: false,
-      };
+      const taskData = createTask(action.payload);
       state.task.push(taskData);
+    },
+    completeTask: (state, action: PayloadAction<string>) => {
+      console.log(action.payload)
+      state.task.forEach((singleTask) => {
+        if (singleTask.id === action.payload && singleTask.isCompleted !==true) {
+          singleTask.isCompleted = true;
+        }
+      });
     },
   },
 });
@@ -52,5 +52,5 @@ const taskSlice = createSlice({
 export const selectTask = (state: RootState) => {
   return state.tasks.task;
 };
-export const { addATask } = taskSlice.actions;
+export const { addATask,completeTask } = taskSlice.actions;
 export default taskSlice.reducer;
