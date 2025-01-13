@@ -39,16 +39,35 @@ const taskSlice = createSlice({
       state.task.push(taskData);
     },
     completeTask: (state, action: PayloadAction<string>) => {
-      console.log(action.payload)
+      console.log(action.payload);
       state.task.forEach((singleTask) => {
-        if (singleTask.id === action.payload && singleTask.isCompleted !==true) {
+        if (
+          singleTask.id === action.payload &&
+          singleTask.isCompleted !== true
+        ) {
           singleTask.isCompleted = true;
         }
       });
     },
     deleteTask: (state, action: PayloadAction<string>) => {
-      console.log(action.payload)
-      state.task = state.task.filter((singleTask) => singleTask.id !== action.payload);
+      console.log(action.payload);
+      state.task = state.task.filter(
+        (singleTask) => singleTask.id !== action.payload
+      );
+    },
+    updateTask: (state, action) => {
+      const { id, newTitle, newDescription, newDate, newPrority } =
+        action.payload;
+        console.log('update' , action.payload)
+      state.task.forEach((singleTask) => {
+        if (singleTask.id === id) {
+          // here update thing set
+          singleTask.title = newTitle;
+          singleTask.description = newDescription;
+          singleTask.dueDate = newDate;
+          singleTask.priority = newPrority;
+        }
+      });
     },
   },
 });
@@ -56,5 +75,5 @@ const taskSlice = createSlice({
 export const selectTask = (state: RootState) => {
   return state.tasks.task;
 };
-export const { addATask,completeTask,deleteTask } = taskSlice.actions;
+export const { addATask, completeTask, deleteTask,updateTask } = taskSlice.actions;
 export default taskSlice.reducer;

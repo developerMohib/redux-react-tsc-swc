@@ -1,17 +1,14 @@
-import { ITask } from "@/interface/taskInterface";
+import { IProps } from "@/interface/taskInterface";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "../ui/checkbox";
 import { useAppDispatch } from "@/redux/hooks";
-import { completeTask, deleteTask } from "@/redux/features/tasks/taskSlice";
+import { completeTask, deleteTask, updateTask } from "@/redux/features/tasks/taskSlice";
+import UpdateTask from "./UpdateTask";
 
-interface IProps {
-    task: ITask
-}
+
 const TaskCard = ({ task }: IProps) => {
     const dispatch = useAppDispatch()
-    const handleCompleteTask = (id: string) => {
-        dispatch(completeTask(id))
-    }
+console.log('task -',task)
     return (
         <div className="mt-4">
             <div className="grid grid-cols-2 gap-4 bg-white border border-gray-300 rounded-xl overflow-hidden" >
@@ -22,9 +19,10 @@ const TaskCard = ({ task }: IProps) => {
                     <div>
                         <p className="text-xl font-bold">{task.title}</p>
 
-                        <p className="text-gray-500">
+                        <p className="text-gray-500 w-4/6">
                             {task.description}
                         </p>
+                        <p> {task.dueDate} </p>
                         <span className={cn(
                             "text-xs font-semibold",
                             task.priority === "High" ? "text-green-500" : "",
@@ -38,12 +36,13 @@ const TaskCard = ({ task }: IProps) => {
                             <a href="mohibullah-mohim.vercel.app" className={cn("text-blue-500 hover:text-orange-400")} target="_blank">mohibullah mohim web</a>
                         </span>
                     </div>
-
                 </div>
 
                 <div className="grid-cols-1 space-x-5 flex items-center">
                     <Checkbox disabled={task.isCompleted} onClick={() => dispatch(completeTask(task.id))} />
-                    <button onClick={() => dispatch(deleteTask(task.id))} > delete</button>
+                    <button onClick={() => dispatch(deleteTask(task.id))} > delete </button>
+                    <button onClick={() => dispatch(updateTask(task))} > update </button>
+                    <UpdateTask singleTask={task} />
                 </div>
             </div>
         </div>
