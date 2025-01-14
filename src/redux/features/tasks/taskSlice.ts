@@ -3,6 +3,7 @@ import { RootState } from "@/redux/store";
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 interface IinitialState {
   task: ITask[];
+  filter: "All" | "High" | "Medium" | "Low";
 }
 const initialState: IinitialState = {
   task: [
@@ -23,6 +24,7 @@ const initialState: IinitialState = {
       priority: "Medium",
     },
   ],
+  filter: "All",
 };
 
 type DrafData = Pick<ITask, "title" | "description" | "dueDate" | "priority">;
@@ -39,7 +41,6 @@ const taskSlice = createSlice({
       state.task.push(taskData);
     },
     completeTask: (state, action: PayloadAction<string>) => {
-      console.log(action.payload);
       state.task.forEach((singleTask) => {
         if (
           singleTask.id === action.payload &&
@@ -55,12 +56,9 @@ const taskSlice = createSlice({
       );
     },
     updateTask: (state, action) => {
-      const { id, title, description, dueDate, prority } =
-        action.payload;
-        console.log('update' , action.payload.update)
+      const { id, title, description, dueDate, prority } = action.payload;
       state.task.forEach((singleTask) => {
         if (singleTask.id === id) {
-          // here update thing set
           singleTask.title = title;
           singleTask.description = description;
           singleTask.dueDate = dueDate;
@@ -68,11 +66,30 @@ const taskSlice = createSlice({
         }
       });
     },
+    filterTask: (
+      state,
+      action: PayloadAction<"All" | "High" | "Medium" | "Low">
+    ) => {
+      console.log("filter", action.payload);
+      state.filter = action.payload;
+    },
   },
 });
 
 export const selectTask = (state: RootState) => {
-  return state.tasks.task;
+  const filerTasks = state.tasks.task; // Assuming this is an array of tasks
+  const filter = state.tasks.filter; // Assuming this is a string like "High", "Medium", or "Low"
+
+  if (filter === "High") {
+    return filerTasks.filter((task) => task.priority === "High");
+  } else if (filter === "Medium") {
+    return filerTasks.filter((task) => task.priority === "Medium");
+  } else if (filter === "Low") {
+    return filerTasks.filter((task) => task.priority === "Low");
+  } else {
+    return filerTasks;
+  }
 };
-export const { addATask, completeTask, deleteTask,updateTask } = taskSlice.actions;
+export const { addATask, completeTask, deleteTask, updateTask, filterTask } =
+  taskSlice.actions;
 export default taskSlice.reducer;
