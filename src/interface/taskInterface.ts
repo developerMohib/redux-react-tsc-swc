@@ -6,6 +6,10 @@ export interface ITask {
   isCompleted: boolean;
   priority: "High" | "Medium" | "Low";
 }
+export interface IUsers {
+  id: string;
+  name:string
+}
 export interface IProps {
   task: ITask
 }

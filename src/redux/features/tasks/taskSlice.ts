@@ -36,11 +36,11 @@ const taskSlice = createSlice({
   name: "task",
   initialState,
   reducers: {
-    addATask: (state, action: PayloadAction<ITask>) => {
+    addATask: (state, action: PayloadAction<ITask>): void => {
       const taskData = createTask(action.payload);
       state.task.push(taskData);
     },
-    completeTask: (state, action: PayloadAction<string>) => {
+    completeTask: (state, action: PayloadAction<string>): void => {
       state.task.forEach((singleTask) => {
         if (
           singleTask.id === action.payload &&
@@ -50,7 +50,7 @@ const taskSlice = createSlice({
         }
       });
     },
-    deleteTask: (state, action: PayloadAction<string>) => {
+    deleteTask: (state, action: PayloadAction<string>): void => {
       state.task = state.task.filter(
         (singleTask) => singleTask.id !== action.payload
       );
@@ -70,7 +70,6 @@ const taskSlice = createSlice({
       state,
       action: PayloadAction<"All" | "High" | "Medium" | "Low">
     ) => {
-      console.log("filter", action.payload);
       state.filter = action.payload;
     },
   },
