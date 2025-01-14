@@ -15,11 +15,16 @@ import { format } from 'date-fns';
 import { ITask } from '@/interface/taskInterface';
 
 const UpdateTask = ({ singleTask }) => {
-    console.log('tasks', singleTask)
+    // console.log('tasks', singleTask)
     const form = useForm()
     const dispatch = useAppDispatch()
+
     const onSubmit: SubmitHandler<FieldValues> = (data): void => {
-        dispatch(updateTask(data as ITask))
+        const updatedTask = {
+            ...data,
+            id: singleTask.id, // Include the task id
+        };
+        dispatch(updateTask(updatedTask as ITask))
     }
     return (
         <Dialog>

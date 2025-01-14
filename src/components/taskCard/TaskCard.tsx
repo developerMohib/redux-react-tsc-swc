@@ -8,7 +8,6 @@ import UpdateTask from "./UpdateTask";
 
 const TaskCard = ({ task }: IProps) => {
     const dispatch = useAppDispatch()
-console.log('task -',task)
     return (
         <div className="mt-4">
             <div className="grid grid-cols-2 gap-4 bg-white border border-gray-300 rounded-xl overflow-hidden" >
@@ -19,10 +18,10 @@ console.log('task -',task)
                     <div>
                         <p className="text-xl font-bold">{task.title}</p>
 
-                        <p className="text-gray-500 w-4/6">
+                        <p className="text-gray-500">
                             {task.description}
                         </p>
-                        <p> {task.dueDate} </p>
+                        {/* <p> {task.dueDate} </p> */}
                         <span className={cn(
                             "text-xs font-semibold",
                             task.priority === "High" ? "text-green-500" : "",

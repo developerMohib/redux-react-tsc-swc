@@ -50,22 +50,21 @@ const taskSlice = createSlice({
       });
     },
     deleteTask: (state, action: PayloadAction<string>) => {
-      console.log(action.payload);
       state.task = state.task.filter(
         (singleTask) => singleTask.id !== action.payload
       );
     },
     updateTask: (state, action) => {
-      const { id, newTitle, newDescription, newDate, newPrority } =
+      const { id, title, description, dueDate, prority } =
         action.payload;
-        console.log('update' , action.payload)
+        console.log('update' , action.payload.update)
       state.task.forEach((singleTask) => {
         if (singleTask.id === id) {
           // here update thing set
-          singleTask.title = newTitle;
-          singleTask.description = newDescription;
-          singleTask.dueDate = newDate;
-          singleTask.priority = newPrority;
+          singleTask.title = title;
+          singleTask.description = description;
+          singleTask.dueDate = dueDate;
+          singleTask.priority = prority;
         }
       });
     },
