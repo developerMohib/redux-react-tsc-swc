@@ -14,6 +14,7 @@ const initialState: IinitialState = {
       dueDate: "2025-1",
       isCompleted: false,
       priority: "High",
+      assignto : "Mir bhai"
     },
     {
       id: "asdfasdf",
@@ -22,12 +23,13 @@ const initialState: IinitialState = {
       dueDate: "2025-1",
       isCompleted: false,
       priority: "Medium",
+      assignto : "Mir bhai"
     },
   ],
   filter: "All",
 };
 
-type DrafData = Pick<ITask, "title" | "description" | "dueDate" | "priority">;
+type DrafData = Pick<ITask, "title" | "description" | "dueDate" | "priority" | "assignto">;
 const createTask = (taskFormData: DrafData) => {
   return { id: nanoid(), isCompleted: false, ...taskFormData };
 };
@@ -37,6 +39,7 @@ const taskSlice = createSlice({
   initialState,
   reducers: {
     addATask: (state, action: PayloadAction<ITask>): void => {
+      console.log(action.payload)
       const taskData = createTask(action.payload);
       state.task.push(taskData);
     },

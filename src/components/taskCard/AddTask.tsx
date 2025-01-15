@@ -18,13 +18,15 @@ import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import { Calendar } from "../ui/calendar"
-import { useAppDispatch } from "@/redux/hooks"
+import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { addATask } from "@/redux/features/tasks/taskSlice"
 import { ITask } from "@/interface/taskInterface"
+import { selectUsers } from "@/redux/features/users/userSlice"
 
 export function AddTask() {
     const form = useForm()
     const dispatch = useAppDispatch()
+    const users = useAppSelector(selectUsers)
     const onSubmit: SubmitHandler<FieldValues> = (data): void => {
         dispatch(addATask(data as ITask))
     }
@@ -34,7 +36,7 @@ export function AddTask() {
             <DialogTrigger asChild>
                 <Button variant="outline">Add More Task</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-md overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Add More Task</DialogTitle>
                     <DialogDescription>
@@ -129,6 +131,34 @@ export function AddTask() {
                                                     <SelectItem value="High">High</SelectItem>
                                                     <SelectItem value="Medium">Medium</SelectItem>
                                                     <SelectItem value="Low">Low</SelectItem>
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* who assign task */}
+                        <FormField
+                            control={form.control}
+                            name="assignto"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Assign to</FormLabel>
+                                    <FormControl>
+                                        <Select onValueChange={(value) => field.onChange(value)} defaultValue={field.value}>
+                                            <SelectTrigger >
+                                                <SelectValue placeholder="Select priority" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectGroup>
+                                                    <SelectLabel >Assign to </SelectLabel>
+                                                    {
+                                                        users ? (users.map(user => (
+                                                            <SelectItem value={user.id} > {user.name} </SelectItem>
+                                                        ))) : "Please add user"
+                                                    }
                                                 </SelectGroup>
                                             </SelectContent>
                                         </Select>
