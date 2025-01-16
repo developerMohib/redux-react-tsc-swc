@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 const Tasks = () => {
     const tasks = useAppSelector(selectTask)
     const dispatch = useAppDispatch()
+    console.log(tasks)
     return (
         <div>
             <AddTask />

@@ -4,6 +4,7 @@ import Home from '@/pages/home/Home';
 import Quiz from '@/pages/quiz/Quiz';
 import Tasks from '@/pages/tasks/Tasks';
 import Users from '@/pages/users/Users';
+import Works from '@/pages/works/Works';
 import { createBrowserRouter } from 'react-router';
 
 export const router = createBrowserRouter([
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
             {
                 path: "/tasks",
                 element: <Tasks />
+            },
+            {
+                path: "/works",
+                element: <Works/>
             },
             {
                 path: "/quiz",
