@@ -12,9 +12,8 @@ const Users = () => {
     const users = useAppSelector(selectUsers)
     const onSubmit: SubmitHandler<FieldValues> = (data): void => {
         dispatch(addUser(data as IUsers))
-        console.log('data', data)
     }
-    console.log('users', users)
+
     return (
         <div>
             <Form {...form}>

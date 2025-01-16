@@ -22,15 +22,22 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { addATask } from "@/redux/features/tasks/taskSlice"
 import { ITask } from "@/interface/taskInterface"
 import { selectUsers } from "@/redux/features/users/userSlice"
+import { useCreateWorkMutation } from "@/redux/api/baseApi"
+import { nanoid } from "@reduxjs/toolkit"
 
 export function AddTask() {
     const form = useForm()
     const dispatch = useAppDispatch()
     const users = useAppSelector(selectUsers)
+
+    const [createWork, { data: workData }] = useCreateWorkMutation()
+
     const onSubmit: SubmitHandler<FieldValues> = (data): void => {
         dispatch(addATask(data as ITask))
+        const taskData = { id: nanoid(), isCompleted: false, ...data }
+        createWork(taskData)
     }
-
+console.log(workData, 'kire bhai');
     return (
         <Dialog>
             <DialogTrigger asChild>
